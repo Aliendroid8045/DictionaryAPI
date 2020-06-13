@@ -1,0 +1,8 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/low"
+        android:title="@string/less_voted" />
+    <item
+        android:id="@+id/high"
+        android:title="@string/most_voted" />
+</menu>

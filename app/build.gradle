@@ -1,0 +1,81 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+//to transfer data between activities and fragment using safearguments via intent
+//to enable data-binding
+apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs"
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+
+    dataBinding {
+        enabled = true
+    }
+    defaultConfig {
+        applicationId "com.example.dictionarychallenge"
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        //to support SVG images
+        vectorDrawables.useSupportLibrary true
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_Version"
+
+    //KTX to get extension function of kotlin base modules like  room, viewmodel, live data
+    implementation "androidx.core:core-ktx:$ktx_Version"
+    implementation "androidx.appcompat:appcompat:$app_Compat_Version"
+    implementation "androidx.fragment:fragment-ktx:$fragment_Version"
+    implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta6"
+
+    //implementation 'androidx.legacy:legacy-support-v4:1.0.0' ->com.android.support:support-v4 -> androidx.legacy:legacy-support-v4
+    implementation "androidx.recyclerview:recyclerview:$recycler_ViewVersion"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    //testing libraries which only package for testing, should not go into production app
+    testImplementation "junit:junit:$junit_Version"
+    androidTestImplementation "androidx.test.ext:junit:$test_Ext_Junit"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_Version"
+
+    // network & serialization dependency
+    implementation("com.squareup.okhttp3:logging-interceptor:4.7.2")
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_gson_version"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+
+    // ViewModel and LiveData
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$livedata_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_android_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_android_version"
+
+    // Navigation
+    implementation "android.arch.navigation:navigation-fragment-ktx:1.0.0"
+    implementation "android.arch.navigation:navigation-ui-ktx:1.0.0"
+
+    implementation "com.google.android.material:material:$material_Version"
+}

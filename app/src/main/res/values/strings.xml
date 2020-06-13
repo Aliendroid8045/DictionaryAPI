@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">DictionaryChallenge</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="total_likes_by_people">Total likes by people</string>
+    <string name="filter_by_vote">Filter by vote</string>
+    <string name="less_voted">Vote low to high</string>
+    <string name="most_voted">vote high to low</string>
+    <string name="binding_word">Word is: %s</string>
+    <string name="binding_definition">Definition is: %s</string>
+    <string name="binding_example">Example on word: %s</string>
+    <string name="binding_written_on">Written on: %s</string>
+    <string name="hint">Please enter your search</string>
+</resources>
