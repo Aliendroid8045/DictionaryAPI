@@ -2,13 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 //to transfer data between activities and fragment using safearguments via intent
-//to enable data-binding
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs"
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
-
+//to enable data-binding
     dataBinding {
         enabled = true
     }
@@ -38,6 +37,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    testOptions.unitTests {
+        includeAndroidResources = true
+    }
 }
 
 dependencies {
@@ -57,7 +59,10 @@ dependencies {
     //testing libraries which only package for testing, should not go into production app
     testImplementation "junit:junit:$junit_Version"
     androidTestImplementation "androidx.test.ext:junit:$test_Ext_Junit"
+    testImplementation "androidx.test:core-ktx:$androidX_Test_CoreVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_Version"
+    testImplementation "org.robolectric:robolectric:$robolectric_Version"
+    testImplementation "androidx.arch.core:core-testing:$arch_TestingVersion"
 
     // network & serialization dependency
     implementation("com.squareup.okhttp3:logging-interceptor:4.7.2")

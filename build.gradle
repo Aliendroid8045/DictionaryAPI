@@ -26,6 +26,9 @@ buildscript {
         espresso_Version = '3.2.0'
         junit_Version = '4.12'
         test_Ext_Junit = '1.1.1'
+        androidX_Test_CoreVersion="1.2.0"
+        robolectric_Version ="4.3.1"
+        arch_TestingVersion ="2.0.0"
 
         kotlin_Version = '1.3.72'
         ktx_Version = '1.3.0'
