@@ -39,7 +39,6 @@ class WordListFragmentTest {
             "current_vote",
             "written_on"
         )
-
         val wordResponse = SearchedWordResponse(arrayListOf(description, description2))
 
         //when
