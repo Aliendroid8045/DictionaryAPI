@@ -1,11 +1,10 @@
 package com.example.dictionarychallenge.ui
 
-import androidx.fragment.app.Fragment
+
 import androidx.lifecycle.*
 import com.example.dictionarychallenge.DictionaryRepository
 import com.example.dictionarychallenge.data.SearchedWordResponse
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

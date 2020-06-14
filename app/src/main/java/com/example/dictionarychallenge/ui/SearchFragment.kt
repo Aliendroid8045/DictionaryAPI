@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.viewModels
@@ -29,25 +30,38 @@ class SearchFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_search, container, false)
-        val searchView = view.findViewById<EditText>(R.id.search_bar)
-        handleKeyBoardEnterKey(searchView)
+        val searchBar = view.findViewById<EditText>(R.id.search_bar)
+        val buttonSearch = view.findViewById<Button>(R.id.btn_search)
+        handleKeyBoardEnterKey(searchBar)
+        handleButtonClick(buttonSearch)
         handleSpinner()
         return view
     }
 
-    fun handleKeyBoardEnterKey(searchView: EditText) =
-        searchView.setOnEditorActionListener { v, actionId, event ->
+    private fun handleButtonClick(buttonSearch: Button) {
+        buttonSearch.setOnClickListener {
+            hideKeyboard(btn_search)
+            viewModel.makeAPICallWithSuspendFunction(search_bar.text)
+            atEndOfNetworkCall()
+        }
+    }
+
+    fun handleKeyBoardEnterKey(searchBar: EditText) =
+        searchBar.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                val imm =
-                    activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(searchView.windowToken, 0)
-                viewModel.makeAPICallWithSuspendFunction(searchView.text)
+                hideKeyboard(search_bar)
+                viewModel.makeAPICallWithSuspendFunction(searchBar.text)
                 atEndOfNetworkCall()
                 true
             } else {
                 false
             }
         }
+
+    private fun hideKeyboard(searchView: View) {
+        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(searchView.windowToken, 0)
+    }
 
     private fun handleSpinner() {
         // show the spinner when [MainViewModel.spinner] is true
