@@ -15,7 +15,7 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 @ExperimentalCoroutinesApi
-class WordListFragmentViewModelTest {
+class WordListFragmentTest {
 
     @Test
     fun launch_listFragment_when_resultSuccess() {

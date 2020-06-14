@@ -59,14 +59,11 @@ dependencies {
     //testing libraries which only package for testing, should not go into production app
     testImplementation "junit:junit:$junit_Version"
     androidTestImplementation "androidx.test.ext:junit:$test_Ext_Junit"
-    testImplementation "androidx.test:core-ktx:$androidX_Test_CoreVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_Version"
-    testImplementation "org.robolectric:robolectric:$robolectric_Version"
-    testImplementation "androidx.arch.core:core-testing:$arch_TestingVersion"
     debugImplementation "androidx.fragment:fragment-testing:1.3.0-alpha06"
-    implementation "androidx.test:core:$androidX_Test_CoreVersion"
-    androidTestImplementation 'org.mockito:mockito-android:2.+'
-    implementation "org.mockito:mockito-core:2.+"
+    testImplementation 'org.mockito:mockito-android:2.28.2'
+    testImplementation "org.mockito:mockito-core:2.28.2"
+    testImplementation "org.mockito:mockito-inline:2.8.9"
 
 
     // network & serialization dependency
@@ -86,6 +83,5 @@ dependencies {
     // Navigation
     implementation "android.arch.navigation:navigation-fragment-ktx:1.0.0"
     implementation "android.arch.navigation:navigation-ui-ktx:1.0.0"
-
     implementation "com.google.android.material:material:$material_Version"
 }

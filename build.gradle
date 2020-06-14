@@ -13,12 +13,12 @@ buildscript {
         // App dependencies
 
         recycler_ViewVersion = '1.2.0-alpha03'
-        material_Version = '1.0.0'
+        material_Version = '1.1.0'
         app_Compat_Version = '1.1.0'
         fragment_Version = '1.1.0-alpha09'
 
         lifecycle_version = '2.2.0'
-        livedata_version = '2.3.0-alpha03'
+        livedata_version = '2.3.0-alpha04'
 
         retrofit_gson_version = '2.9.0'
         retrofit_version = '2.9.0'
@@ -27,11 +27,7 @@ buildscript {
         espresso_Version = '3.2.0'
         junit_Version = '4.12'
         test_Ext_Junit = '1.1.1'
-        androidX_Test_CoreVersion="1.2.0"
-        robolectric_Version ="4.3.1"
-        arch_TestingVersion ="2.0.0"
         fragment_test_Version ="2.0.0"
-        mockito_Version = '2.23.0'
 
 
         kotlin_Version = '1.3.72'
