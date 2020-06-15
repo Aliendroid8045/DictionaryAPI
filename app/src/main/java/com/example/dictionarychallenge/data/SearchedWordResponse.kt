@@ -8,6 +8,7 @@ import kotlinx.android.parcel.RawValue
 @Parcelize
 data class SearchedWordResponse(val list: @RawValue ArrayList<Description>) : Parcelable
 
+@Parcelize
 data class Description(
     val definition: String,
     val permalink: String,
@@ -17,5 +18,5 @@ data class Description(
     val written_on: String,
     val example: String,
     val thumbs_down: String
-)
+) : Parcelable
 
