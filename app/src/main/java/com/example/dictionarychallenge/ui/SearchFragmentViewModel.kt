@@ -36,6 +36,7 @@ class SearchFragmentViewModel internal constructor(
     fun makeAPICallWithSuspendFunction(term: CharSequence) {
         viewModelScope.launch {
             _spinner.value = true
+            _isLoading.value = true
             //added delay to see the progress bar. Delay is an inbuilt function for kotlin coroutine
             delay(1000)
             val result = dictionaryRepository.fetchRecentSearchedWord(term)

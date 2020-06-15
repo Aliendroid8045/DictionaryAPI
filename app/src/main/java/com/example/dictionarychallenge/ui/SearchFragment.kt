@@ -74,7 +74,8 @@ class SearchFragment : Fragment() {
         viewModel.isLoading.observe(viewLifecycleOwner, Observer {
             if (it == false) {
                 navigateUserToResultFragment()
-            } else {
+            }
+            if (viewModel.snackBar.value != null) {
                 Toast.makeText(activity, viewModel.snackBar.value, Toast.LENGTH_LONG).show()
             }
         })
