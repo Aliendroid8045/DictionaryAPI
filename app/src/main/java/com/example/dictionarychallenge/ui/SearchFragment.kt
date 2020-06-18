@@ -71,7 +71,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun atEndOfNetworkCall() {
-        viewModel.isLoading.observe(viewLifecycleOwner, Observer {
+        viewModel.spinner.observe(viewLifecycleOwner, Observer {
             if (it == false) {
                 navigateUserToResultFragment()
             }

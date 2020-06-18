@@ -41,14 +41,14 @@ class WordListFragmentViewModel(private val dictionaryRepository: DictionaryRepo
 
     private fun filterItems(@StringRes filteringLabelString: Int, mostVoted: Boolean) {
         _currentFilteringLabel.value = filteringLabelString
-        val filteredList: List<Description>
+        val filteredList: List<Description>?
         when (mostVoted) {
             true -> {
                 filteredList =
-                    _wordResultList.value?.sortedWith(compareByDescending { it.thumbs_up.toInt() })!!
+                    _wordResultList.value?.sortedWith(compareByDescending { it.thumbs_up.toInt() })
             }
             else -> filteredList =
-                _wordResultList.value?.sortedWith(compareBy { it.thumbs_up.toInt() })!!
+                _wordResultList.value?.sortedWith(compareBy { it.thumbs_up.toInt() })
         }
         _wordResultList.value = filteredList
     }

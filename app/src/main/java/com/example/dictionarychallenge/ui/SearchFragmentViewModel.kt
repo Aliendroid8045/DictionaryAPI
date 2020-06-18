@@ -17,11 +17,6 @@ class SearchFragmentViewModel internal constructor(
     private val _spinner = MutableLiveData(false)
     val spinner: LiveData<Boolean> get() = _spinner
 
-
-    /** to make sure call has finished and we are ready for result to transfer*/
-    private val _isLoading = MutableLiveData(true)
-    val isLoading: LiveData<Boolean> get() = _isLoading
-
     /**take the data into the result live data and forward it to next screen*/
 
     var wordResult: SearchedWordResponse? = null
@@ -36,17 +31,13 @@ class SearchFragmentViewModel internal constructor(
     fun makeAPICallWithSuspendFunction(term: CharSequence) {
         viewModelScope.launch {
             _spinner.value = true
-            _isLoading.value = true
-            //added delay to see the progress bar. Delay is an inbuilt function for kotlin coroutine
-            delay(1000)
             val result = dictionaryRepository.fetchRecentSearchedWord(term)
             _spinner.value = false
             if (result.isSuccessful) {
                 wordResult = result.body()
-                _isLoading.value = false
             } else {
                 //we can implement simple class to throw error but as of now displaying errror to user is good suggetion
-                _snackBar.value = result.code().toString()
+                _snackBar.value = result.errorBody().toString()
             }
         }
     }
