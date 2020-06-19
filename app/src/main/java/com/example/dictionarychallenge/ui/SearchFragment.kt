@@ -10,7 +10,6 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -42,7 +41,6 @@ class SearchFragment : Fragment() {
         buttonSearch.setOnClickListener {
             hideKeyboard(btn_search)
             viewModel.makeAPICallWithSuspendFunction(search_bar.text)
-            atEndOfNetworkCall()
         }
     }
 
@@ -51,7 +49,6 @@ class SearchFragment : Fragment() {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 hideKeyboard(search_bar)
                 viewModel.makeAPICallWithSuspendFunction(searchBar.text)
-                atEndOfNetworkCall()
                 true
             } else {
                 false
@@ -67,16 +64,8 @@ class SearchFragment : Fragment() {
         // show the spinner when [MainViewModel.spinner] is true
         viewModel.spinner.observe(viewLifecycleOwner, Observer { value ->
             value.let { show -> this.spinner.visibility = if (show) View.VISIBLE else View.GONE }
-        })
-    }
-
-    private fun atEndOfNetworkCall() {
-        viewModel.spinner.observe(viewLifecycleOwner, Observer {
-            if (it == false) {
+            if (value == false) {
                 navigateUserToResultFragment()
-            }
-            if (viewModel.snackBar.value != null) {
-                Toast.makeText(activity, viewModel.snackBar.value, Toast.LENGTH_LONG).show()
             }
         })
     }
