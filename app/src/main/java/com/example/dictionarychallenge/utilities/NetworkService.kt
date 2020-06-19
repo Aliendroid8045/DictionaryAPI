@@ -2,6 +2,7 @@ package com.example.dictionarychallenge.utilities
 
 import com.example.dictionarychallenge.data.SearchedWordResponse
 import com.google.gson.GsonBuilder
+import kotlinx.coroutines.Deferred
 
 
 import okhttp3.OkHttpClient

@@ -19,8 +19,5 @@
         android:name="com.example.dictionarychallenge.ui.WordListFragment"
         android:label="fragment_result"
         tools:layout="@layout/word_list_frag" >
-        <argument
-            android:name="wordlistresponse"
-            app:argType="com.example.dictionarychallenge.data.SearchedWordResponse" />
     </fragment>
 </navigation>

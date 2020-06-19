@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.*
 import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 import com.example.dictionarychallenge.R
-import com.example.dictionarychallenge.data.SearchedWordResponse
 import com.example.dictionarychallenge.utilities.VoteFilter
 import com.example.dictionarychallenge.utilities.getViewModelFactory
 import kotlinx.android.synthetic.main.word_list_frag.*
@@ -19,43 +19,30 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @OptIn(ExperimentalCoroutinesApi::class)
 class WordListFragment : Fragment() {
 
-    private lateinit var wordListResponse: SearchedWordResponse
 
-    val args: WordListFragmentArgs by navArgs()
-
-    private val viewModel by viewModels<WordListFragmentViewModel> { getViewModelFactory() }
+    private val viewModel by activityViewModels<SearchFragmentViewModel> { getViewModelFactory() }
+    val adapter = WordResultAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        wordListResponse = args.wordlistresponse
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         return inflater.inflate(R.layout.word_list_frag, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        if (savedInstanceState == null) {
-            viewModel.setWordResponse(wordListResponse)
-        }
-        setUpRecyclerViewAndObserveDataChange()
-    }
-
-
-    private fun setUpRecyclerViewAndObserveDataChange() {
-        viewModel.wordResultList.observe(viewLifecycleOwner, Observer {
-            word_list.also {
-                it.layoutManager = LinearLayoutManager(requireContext())
-                it.setHasFixedSize(true)
-                it.adapter =
-                    viewModel.wordResultList.value?.toList()?.let { it1 -> WordResultAdapter(it1) }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val rv = view.findViewById<RecyclerView>(R.id.rv)
+        rv.layoutManager = LinearLayoutManager(activity)
+        rv.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
+        rv.adapter = adapter
+        viewModel.wordResponseList.observe(requireActivity(), Observer {
+            adapter.submitList(it)
         })
     }
 

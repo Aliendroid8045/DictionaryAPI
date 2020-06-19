@@ -10,7 +10,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.dictionarychallenge.R
@@ -21,7 +21,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @OptIn(ExperimentalCoroutinesApi::class)
 class SearchFragment : Fragment() {
 
-    private val viewModel by viewModels<SearchFragmentViewModel> { getViewModelFactory() }
+    private val viewModel by activityViewModels<SearchFragmentViewModel> { getViewModelFactory() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,11 +72,9 @@ class SearchFragment : Fragment() {
 
     private fun navigateUserToResultFragment() {
         val directions =
-            viewModel.wordResult?.let {
-                SearchFragmentDirections.actionSearchFragmentToResultFragment(
-                    it
-                )
+            viewModel.wordResponseList.let {
+                SearchFragmentDirections.actionSearchFragmentToResultFragment()
             }
-        directions?.let { findNavController().navigate(it) }
+        directions.let { findNavController().navigate(it) }
     }
 }
