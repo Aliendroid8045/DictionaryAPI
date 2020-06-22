@@ -4,20 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
     app:startDestination="@id/searchFragment">
-
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.dictionarychallenge.ui.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search">
+        tools:layout="@layout/fragment_search" >
         <action
-            android:id="@+id/action_searchFragment_to_resultFragment"
-            app:destination="@id/resultFragment" />
+            android:id="@+id/action_searchFragment_to_wordListFragment"
+            app:destination="@id/wordListFragment" />
     </fragment>
     <fragment
-        android:id="@+id/resultFragment"
+        android:id="@+id/wordListFragment"
         android:name="com.example.dictionarychallenge.ui.WordListFragment"
-        android:label="fragment_result"
-        tools:layout="@layout/word_list_frag" >
-    </fragment>
+        android:label="word_list_frag"
+        tools:layout="@layout/word_list_frag" />
 </navigation>

@@ -3,7 +3,7 @@ package com.example.dictionarychallenge.utilities
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.dictionarychallenge.DictionaryRepository
-import com.example.dictionarychallenge.ui.SearchFragmentViewModel
+import com.example.dictionarychallenge.ui.viewmodel.SearchFragmentViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 

@@ -1,10 +1,11 @@
-package com.example.dictionarychallenge.ui
+package com.example.dictionarychallenge.ui.viewmodel
 
 
 import androidx.lifecycle.*
 import com.example.dictionarychallenge.DictionaryRepository
 import com.example.dictionarychallenge.data.Description
 import com.example.dictionarychallenge.utilities.VoteFilter
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
@@ -14,7 +15,7 @@ class SearchFragmentViewModel internal constructor(
 ) : ViewModel() {
 
     /** Show a loading spinner if true*/
-    private val _spinner = MutableLiveData(true)
+    private val _spinner = MutableLiveData(false)
     val spinner: LiveData<Boolean> get() = _spinner
 
     /**take the data into the result live data and forward it to next screen*/
@@ -23,10 +24,9 @@ class SearchFragmentViewModel internal constructor(
     val wordResponseList: LiveData<List<Description>> = _wordResponseList
 
     fun makeAPICallWithSuspendFunction(term: CharSequence) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.Main) {
             val result = dictionaryRepository.fetchRecentSearchedWord(term)
             _wordResponseList.value = result
-            _spinner.value = false
         }
     }
 
@@ -40,7 +40,7 @@ class SearchFragmentViewModel internal constructor(
     }
 
     private fun filterItems(mostVoted: Boolean) {
-        var filteredList: List<Description>? = null
+        val filteredList: List<Description>?
 
         when (mostVoted) {
             true -> {

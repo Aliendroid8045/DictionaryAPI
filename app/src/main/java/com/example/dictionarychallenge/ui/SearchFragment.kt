@@ -1,6 +1,8 @@
 package com.example.dictionarychallenge.ui
 
 import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,10 +12,12 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.dictionarychallenge.R
+import com.example.dictionarychallenge.ui.viewmodel.SearchFragmentViewModel
 import com.example.dictionarychallenge.utilities.getViewModelFactory
 import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -37,11 +41,35 @@ class SearchFragment : Fragment() {
         return view
     }
 
+
+    fun isNetworkConnected(): Boolean {
+        val cm = activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+        return activeNetwork?.isConnectedOrConnecting == true
+
+    }
+
     private fun handleButtonClick(buttonSearch: Button) {
         buttonSearch.setOnClickListener {
             hideKeyboard(btn_search)
+            if (!isNetworkConnected()) {
+                displayNetworkErrorAlert()
+                return@setOnClickListener
+            }
             viewModel.makeAPICallWithSuspendFunction(search_bar.text)
         }
+    }
+
+    private fun displayNetworkErrorAlert() {
+        val dialogBuilder = AlertDialog.Builder(this.requireContext())
+        dialogBuilder.setMessage(getString(R.string.please_connect_network))
+            .setPositiveButton(getString(R.string.ok)) { dialog, id ->
+                dialog.dismiss()
+            }
+        val alert = dialogBuilder.create()
+        // set title for alert dialog box
+        alert.setTitle(getString(R.string.network_error))
+        alert.show()
     }
 
     fun handleKeyBoardEnterKey(searchBar: EditText) =
@@ -64,17 +92,14 @@ class SearchFragment : Fragment() {
         // show the spinner when [MainViewModel.spinner] is true
         viewModel.spinner.observe(viewLifecycleOwner, Observer { value ->
             value.let { show -> this.spinner.visibility = if (show) View.VISIBLE else View.GONE }
-            if (value == false) {
+            if (value == true) {
                 navigateUserToResultFragment()
             }
         })
     }
 
     private fun navigateUserToResultFragment() {
-        val directions =
-            viewModel.wordResponseList.let {
-                SearchFragmentDirections.actionSearchFragmentToResultFragment()
-            }
-        directions.let { findNavController().navigate(it) }
+        val directions = SearchFragmentDirections.actionSearchFragmentToWordListFragment()
+        findNavController().navigate(directions)
     }
 }

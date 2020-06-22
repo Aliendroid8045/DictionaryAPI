@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.example.dictionarychallenge.R
+import com.example.dictionarychallenge.ui.viewmodel.SearchFragmentViewModel
 import com.example.dictionarychallenge.utilities.VoteFilter
 import com.example.dictionarychallenge.utilities.getViewModelFactory
-import kotlinx.android.synthetic.main.word_list_frag.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @OptIn(ExperimentalCoroutinesApi::class)

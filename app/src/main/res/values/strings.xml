@@ -11,4 +11,7 @@
     <string name="binding_example">Example on word: %s</string>
     <string name="binding_written_on">Written on: %s</string>
     <string name="hint">Please enter your search</string>
+    <string name="please_connect_network">Please connect to Internet</string>
+    <string name="ok">Ok</string>
+    <string name="network_error">Network error</string>
 </resources>
