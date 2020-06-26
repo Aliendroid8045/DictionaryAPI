@@ -1,6 +1,7 @@
 package com.example.dictionarychallenge.ui
 
 import androidx.fragment.app.testing.launchFragmentInContainer
+import androidx.navigation.NavController
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
@@ -9,12 +10,13 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.dictionarychallenge.R
 import com.example.dictionarychallenge.data.Description
 import com.example.dictionarychallenge.data.SearchedWordResponse
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Test
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.verify
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-@ExperimentalCoroutinesApi
+
 class WordListFragmentTest {
 
     @Test
@@ -39,14 +41,14 @@ class WordListFragmentTest {
             "current_vote",
             "written_on"
         )
-        val wordResponse = SearchedWordResponse(arrayListOf(description, description2))
+        val mockNavController = mock(NavController::class.java)
+        val wordListFragment = launchFragmentInContainer<WordListFragment>()
 
+        val wordResponse = SearchedWordResponse(arrayListOf(description, description2))
         //when
-        val bundle = WordListFragmentArgs(wordResponse).toBundle()
-        launchFragmentInContainer<WordListFragment>(bundle, R.style.AppTheme)
 
         //then
-        onView(withId(R.id.word_list)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        onView(withId(R.id.rv)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
 
     }
 

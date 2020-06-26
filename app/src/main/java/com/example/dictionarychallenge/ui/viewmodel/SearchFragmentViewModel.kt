@@ -1,15 +1,15 @@
 package com.example.dictionarychallenge.ui.viewmodel
 
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.dictionarychallenge.DictionaryRepository
 import com.example.dictionarychallenge.data.Description
 import com.example.dictionarychallenge.utilities.VoteFilter
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-@ExperimentalCoroutinesApi
 class SearchFragmentViewModel internal constructor(
     private val dictionaryRepository: DictionaryRepository
 ) : ViewModel() {
@@ -25,8 +25,12 @@ class SearchFragmentViewModel internal constructor(
 
     fun makeAPICallWithSuspendFunction(term: CharSequence) {
         viewModelScope.launch(Dispatchers.Main) {
-            val result = dictionaryRepository.fetchRecentSearchedWord(term)
+            _spinner.value = true
+            val deferred =
+                viewModelScope.async { dictionaryRepository.fetchRecentSearchedWord(term) }
+            val result = deferred.await()
             _wordResponseList.value = result
+            _spinner.value = false
         }
     }
 

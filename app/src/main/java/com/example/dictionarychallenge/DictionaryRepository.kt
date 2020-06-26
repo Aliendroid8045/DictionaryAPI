@@ -16,10 +16,8 @@ import java.io.IOException
  * The Repository only handle the data layer either each fetch from local stored data or from
  * network
  *
- * The @ExperimentalCoroutinesApi and indicate that experimental APIs are being used.
  */
 
-@ExperimentalCoroutinesApi
 class DictionaryRepository internal constructor(private val networkService: NetworkService) :
     BaseRepository() {
 
@@ -40,10 +38,10 @@ class DictionaryRepository internal constructor(private val networkService: Netw
      */
     suspend fun fetchRecentSearchedWord(term: CharSequence): MutableList<Description>? {
         return safeApiCall(
-            call = { networkService.getResultFromNetwork(term) },
+            call = { withContext(Dispatchers.IO) { networkService.getResultFromNetwork(term) } },
             error = "Error fetching data"
-
         )?.list?.toMutableList()
+
         //we can implement database @Room when call failed or error happen, we can pull data from here
     }
 

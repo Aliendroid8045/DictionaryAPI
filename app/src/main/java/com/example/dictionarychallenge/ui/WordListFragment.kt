@@ -14,9 +14,8 @@ import com.example.dictionarychallenge.R
 import com.example.dictionarychallenge.ui.viewmodel.SearchFragmentViewModel
 import com.example.dictionarychallenge.utilities.VoteFilter
 import com.example.dictionarychallenge.utilities.getViewModelFactory
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-@OptIn(ExperimentalCoroutinesApi::class)
+
 class WordListFragment : Fragment() {
 
 

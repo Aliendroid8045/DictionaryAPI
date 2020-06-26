@@ -4,14 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.dictionarychallenge.DictionaryRepository
 import com.example.dictionarychallenge.ui.viewmodel.SearchFragmentViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+
 
 
 /**
  * Factory for all ViewModels.
  */
 @Suppress("UNCHECKED_CAST")
-@ExperimentalCoroutinesApi
 class ViewModelFactory(private val repository: DictionaryRepository) :
     ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>) =

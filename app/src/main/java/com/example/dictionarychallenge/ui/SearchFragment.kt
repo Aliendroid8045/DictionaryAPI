@@ -20,9 +20,7 @@ import com.example.dictionarychallenge.R
 import com.example.dictionarychallenge.ui.viewmodel.SearchFragmentViewModel
 import com.example.dictionarychallenge.utilities.getViewModelFactory
 import kotlinx.android.synthetic.main.fragment_search.*
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class SearchFragment : Fragment() {
 
     private val viewModel by activityViewModels<SearchFragmentViewModel> { getViewModelFactory() }
@@ -42,10 +40,10 @@ class SearchFragment : Fragment() {
     }
 
 
-    fun isNetworkConnected(): Boolean {
+   private fun isNetworkConnected(): Boolean {
         val cm = activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
-        return activeNetwork?.isConnectedOrConnecting == true
+        return activeNetwork?.isConnected == true
 
     }
 
@@ -72,7 +70,7 @@ class SearchFragment : Fragment() {
         alert.show()
     }
 
-    fun handleKeyBoardEnterKey(searchBar: EditText) =
+   private fun handleKeyBoardEnterKey(searchBar: EditText) =
         searchBar.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 hideKeyboard(search_bar)
